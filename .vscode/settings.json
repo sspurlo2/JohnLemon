@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "JohnLemmon.sln"
+    "dotnet.defaultSolution": "JohnLemon.sln"
 }
