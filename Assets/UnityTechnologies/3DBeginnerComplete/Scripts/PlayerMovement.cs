@@ -43,15 +43,6 @@ public class PlayerMovement : MonoBehaviour
             enabled = false; // Disable the script if the camera is not assigned
             return;
         }
-
-        if (WarningText == null)
-        {
-            Debug.LogError("Warning Text (TextMeshPro) is not assigned in the Inspector!");
-            enabled = false; // Disable if the text object is not assigned
-            return;
-        }
-
-        WarningText.gameObject.SetActive(false); // Initially hide the warning text
     }
 
     void FixedUpdate()
@@ -89,28 +80,5 @@ public class PlayerMovement : MonoBehaviour
     {
         m_Rigidbody.MovePosition(m_Rigidbody.position + m_Movement * m_Animator.deltaPosition.magnitude);
         m_Rigidbody.MoveRotation(m_Rotation);
-    }
-
-    void Update()
-    {
-        // Ensure the ghost and camera transforms are valid
-        if (ghostTransform == null || playerCamera == null || WarningText == null)
-        {
-            return;
-        }
-
-        Vector3 toGhost = (ghostTransform.position - playerCamera.position).normalized; // Use camera position
-        float distance = Vector3.Distance(playerCamera.position, ghostTransform.position); // Use camera position
-        float dot = Vector3.Dot(playerCamera.forward, toGhost); // Use camera forward
-
-        if (distance < detectionDistance && dot > viewAngleThreshold)
-        {
-            WarningText.gameObject.SetActive(true);
-            WarningText.text = "Enemy is near!"; // Directly set TextMeshPro text
-        }
-        else
-        {
-            WarningText.gameObject.SetActive(false);
-        }
     }
 }
